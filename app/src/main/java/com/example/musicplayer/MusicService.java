@@ -18,12 +18,16 @@ import static android.app.Notification.*;
 
 public class MusicService extends Service {
 
+    public enum PlayState {
+        play, pause, playAgain
+    }
+
     public static final String SERVICE_ACTION = "com.example.musicplayer.Service";
 
     private int newMusic;
     private MyMusic myMusic;
     private MediaPlayer player = new MediaPlayer();
-    private int state = 0x11;
+    private PlayState state = PlayState.play;
     private int curPosition;
     private int duration;
     private Builder builder;
@@ -81,25 +85,25 @@ public class MusicService extends Service {
                 myMusic = (MyMusic) intent.getSerializableExtra("music");
                 if (myMusic != null) {
                     playMusic(myMusic);
-                    state = 0x12;
+                    state = PlayState.pause;
                 }
             }
 
             int isPlay = intent.getIntExtra("isPlay", -1);
             if (isPlay == -1) {
                 switch (state) {
-                    case 0x11:
+                    case play:
                         myMusic = (MyMusic) intent.getSerializableExtra("music");
                         playMusic(myMusic);
-                        state = 0x12;
+                        state = PlayState.pause;
                         break;
-                    case 0x12:
+                    case pause:
                         player.pause();
-                        state = 0x13;
+                        state = PlayState.playAgain;
                         break;
-                    case 0x13:
+                    case playAgain:
                         player.start();
-                        state = 0x12;
+                        state = PlayState.pause;
                         break;
                 }
             }
