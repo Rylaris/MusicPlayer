@@ -7,6 +7,7 @@ import android.os.Bundle;
 public class MainActivity extends AppCompatActivity {
 
     public static final int PERMISSIONS_REQUEST_READ_EXTERNAL_STORAGE = 1;
+    public static final String ACTIVITY_ACTION = "com.example.musicplayer.activity";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
