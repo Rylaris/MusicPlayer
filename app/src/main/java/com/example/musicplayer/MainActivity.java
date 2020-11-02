@@ -54,6 +54,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
     }
 
     private void initView() {
+        System.out.println("init view");
         musicList = this.findViewById(R.id.list_view);
         preButton = this.findViewById(R.id.img_prev);
         stopButton = this.findViewById(R.id.img_play);
@@ -117,6 +118,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
 
     @Override
     public void onClick(View view) {
+        System.out.println("click");
         Intent intent = new Intent(MusicService.SERVICE_ACTION);
         switch (view.getId()) {
             case R.id.img_prev:
@@ -130,6 +132,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
                 intent.putExtra("music", music);
                 break;
             case R.id.img_play:
+                System.out.println("click play");
                 if (music == null) {
                     music = musics.get(index);
                     intent.putExtra("music", music);

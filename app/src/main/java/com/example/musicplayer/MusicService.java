@@ -36,17 +36,17 @@ public class MusicService extends Service {
     private PlayState state = PlayState.play;
     private int curPosition;
     private int duration;
-    private Builder builder;
+    private Notification.Builder builder;
 
     @Override
     public void onCreate() {
         super.onCreate();
-
+        System.out.println("create");
         MyBroadcastReceiver receiver = new MyBroadcastReceiver();
         IntentFilter filter = new IntentFilter(SERVICE_ACTION);
         registerReceiver(receiver, filter);
 
-        builder = new Builder(this);
+        builder = new Notification.Builder(this);
         builder.setTicker("音乐播放器");
         builder.setSmallIcon(R.mipmap.music);
         builder.setContentTitle("音乐播放器");
@@ -86,6 +86,7 @@ public class MusicService extends Service {
 
         @Override
         public void onReceive(Context context, Intent intent) {
+            System.out.println("receive");
             newMusic = intent.getIntExtra("newMusic", -1);
             if (newMusic != -1) {
                 myMusic = (MyMusic) intent.getSerializableExtra("music");
@@ -96,7 +97,7 @@ public class MusicService extends Service {
             }
 
             int isPlay = intent.getIntExtra("isPlay", -1);
-            if (isPlay == -1) {
+            if (isPlay != -1) {
                 switch (state) {
                     case play:
                         myMusic = (MyMusic) intent.getSerializableExtra("music");
