@@ -6,7 +6,6 @@ import android.content.ContentResolver;
 import android.content.Context;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
-import android.os.Build;
 import android.provider.MediaStore;
 
 import androidx.core.app.ActivityCompat;
@@ -52,7 +51,7 @@ public class Util {
         }
 
         if (permissions.size() != 0) {
-            ActivityCompat.requestPermissions(activity, (String[])permissions.toArray(),
+            ActivityCompat.requestPermissions(activity, permissions.toArray(new String[0]),
                     MainActivity.PERMISSIONS_REQUEST_READ_EXTERNAL_STORAGE);
             return false;
         }
