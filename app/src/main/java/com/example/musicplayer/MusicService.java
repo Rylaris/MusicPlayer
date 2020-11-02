@@ -19,7 +19,13 @@ import static android.app.Notification.*;
 public class MusicService extends Service {
 
     public enum PlayState {
-        play, pause, playAgain
+        play(0), pause(1), playAgain(2);
+
+        public final int value;
+
+        PlayState(int value) {
+            this.value = value;
+        }
     }
 
     public static final String SERVICE_ACTION = "com.example.musicplayer.Service";
